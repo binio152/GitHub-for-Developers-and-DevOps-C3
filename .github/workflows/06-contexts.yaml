@@ -43,4 +43,10 @@ jobs:
       - name: Dislay Env Variable of VAR 
         run: |
             echo "ENV Variable: ${{env.VAR}}"
-          
+  echo-data-2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display Env Variable
+        run: |
+          echo "ENV Variable: $TEST"
+          echo "ENV Variable: $VAR"
