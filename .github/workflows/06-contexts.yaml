@@ -10,14 +10,14 @@ on:
         default: false
 
 env:
-  TEST: "Hello GitHub Actions"
-  VAR: "Ahjhj"
+  TEST: Hello GitHub Actions
+  VAR: Ahjhj
 
 jobs:
   echo-data:
     runs-on: ubuntu-latest
     env:
-      VAR: "Ahihi"
+      VAR: Ahihi
     steps:
       - name: Display Information
         run: |
@@ -34,6 +34,13 @@ jobs:
           echo "Variable value: ${{vars.TEST}}"
         
       - name: Dislay Env Variable
+        env:
+          VAR: Xin chao
         run: |
             echo "ENV Variable: ${{env.TEST}}"
             echo "ENV Variable: ${{env.VAR}}"
+            
+      - name: Dislay Env Variable of VAR 
+        run: |
+            echo "ENV Variable: ${{env.VAR}}"
+          
