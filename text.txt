@@ -1,3 +1,0 @@
-adding ssh key
-delete ssh key remote and trying push origin
-push again with ssh key
