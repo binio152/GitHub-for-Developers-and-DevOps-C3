@@ -9,9 +9,12 @@ jobs:
       # 0. Checkout the code from th repo
       - name: Checkout Code
         uses: actions/checkout@v6
-      - name: Printing Folders
-        run: ls
-
-    # 1. Install deps of react app
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: latest
+      # 1. Install deps of react app
+      - name: Install Dependencies
+        run: npm ci
 
     # 2. execute automated test
