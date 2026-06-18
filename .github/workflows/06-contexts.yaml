@@ -1,6 +1,8 @@
 name: 06 - Contexts
 
-on: push
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   echo-data:
@@ -19,3 +21,7 @@ jobs:
       - name: Display Variable
         run: |
           echo "Variable value: ${{vars.TEST}}"
+        
+      - name: Dislay Env Variable
+        run: |
+            echo "ENV Variable: ${{env.TEST}}"
