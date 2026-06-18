@@ -9,9 +9,15 @@ on:
         type: boolean
         default: false
 
+env:
+  TEST: "Hello GitHub Actions"
+  VAR: "Ahjhj"
+
 jobs:
   echo-data:
     runs-on: ubuntu-latest
+    env:
+      VAR: "Ahihi"
     steps:
       - name: Display Information
         run: |
@@ -30,3 +36,4 @@ jobs:
       - name: Dislay Env Variable
         run: |
             echo "ENV Variable: ${{env.TEST}}"
+            echo "ENV Variable: ${{env.VAR}}"
