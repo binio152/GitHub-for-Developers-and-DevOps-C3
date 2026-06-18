@@ -1,0 +1,13 @@
+name: 05 - Event Filters and Activity Types
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Running whenenver PR is closed on main"
