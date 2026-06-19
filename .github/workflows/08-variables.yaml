@@ -25,3 +25,25 @@ jobs:
           echo "ENV Variable JOB_VAR: ${{env.JOB_VAR}}"
           echo "ENV Variable STEP_VAR: ${{env.STEP_VAR}}"
           echo "ENV Variable VAR: $VAR"
+  echo2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Variables
+        run: |
+          echo "Repo ENV Variable: ${{vars.SECRET_ENV}}"
+  echo3:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Print Prod ENV
+        run: |
+          echo "Product DB_URI: ${{vars.BD_URI}}"
+          echo "Product ACCESS_TOKEN_TTL: ${{vars.ACCESS_TOKEN_TTL}}"
+  echo4:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Print Dev ENV
+        run: |
+          echo "Dev DB_URI: ${{vars.BD_URI}}"
+          echo "Dev ACCESS_TOKEN_TTL: ${{vars.ACCESS_TOKEN_TTL}}"
