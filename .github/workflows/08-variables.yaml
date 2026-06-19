@@ -30,14 +30,14 @@ jobs:
     steps:
       - name: Print Variables
         run: |
-          echo "Repo ENV Variable: ${{vars.SECRET_ENV}}"
+          echo "Repo ENV Variable: ${{secrets.SECRET_ENV}}"
   echo3:
     runs-on: ubuntu-latest
     environment: prod
     steps:
       - name: Print Prod ENV
         run: |
-          echo "Product DB_URI: ${{vars.BD_URI}}"
+          echo "Product DB_URI: ${{secrets.BD_URI}}"
           echo "Product ACCESS_TOKEN_TTL: ${{vars.ACCESS_TOKEN_TTL}}"
   echo4:
     runs-on: ubuntu-latest
@@ -45,5 +45,5 @@ jobs:
     steps:
       - name: Print Dev ENV
         run: |
-          echo "Dev DB_URI: ${{vars.BD_URI}}"
+          echo "Dev DB_URI: ${{secrets.BD_URI}}"
           echo "Dev ACCESS_TOKEN_TTL: ${{vars.ACCESS_TOKEN_TTL}}"
