@@ -1,0 +1,32 @@
+name: 09 - Using Functions
+
+on:
+  pull_request:
+
+jobs:
+  echo1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sleep for 20 seconds
+        run: sleep 20
+    
+      - name: Failing step
+        run: exit 1
+
+      - name: This step will be skipped
+        if: ${{ success() }}
+        run: echo "This step will be skipped"
+
+      - name: This step will be runned
+        if: ${{ failure() }}
+        run: echo "This step will be runned"
+
+      - name: This step always run
+        if: ${{ !cancelled() }}
+        run: |
+          echo "Logging: Trigger event is ${{github.event_name}} from ${{github.head_ref}} to ${{github.base_ref}} and run on ${{runner.os}}"
+
+      - name: This step will execute when cancelled
+        if: ${{ cancelled() }}
+        run: |
+          echo "Logging: Trigger event is ${{github.event_name}}."
