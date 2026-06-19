@@ -13,10 +13,10 @@ jobs:
       - name: Print PR Title
         run: echo "${{github.event.pull_request.title}}"
 
-      - name: Print PR Labels
+      - name: Print Trigger Event Info
         run: |
           cat << EOF
-          ${{ toJSON(github.event.pull_request.labels) }}
+          ${{ toJSON(github.event) }}
           EOF
 
       - name: Bug Step
