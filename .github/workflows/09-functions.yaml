@@ -16,7 +16,7 @@ jobs:
       - name: Prin PR Labels
         run: |
           cat << EOF
-          ${{toJson(github.event.pull_request.labels)}}
+          ${{toJSON(github.event.pull_request.labels)}}
           EOF
 
       - name: Bug Step
