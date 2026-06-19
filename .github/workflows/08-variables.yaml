@@ -24,4 +24,4 @@ jobs:
           echo "ENV Variable WORKFLOW_VAR: ${{env.WORKFLOW_VAR}}"
           echo "ENV Variable JOB_VAR: ${{env.JOB_VAR}}"
           echo "ENV Variable STEP_VAR: ${{env.STEP_VAR}}"
-          echo "ENV Variable VAR: $env.VAR"
+          echo "ENV Variable VAR: $VAR"
