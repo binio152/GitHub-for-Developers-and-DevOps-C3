@@ -1,4 +1,8 @@
-name: 07 - Expressions
+name: 07 - Using Expressions
+run-name: 07 - Using Expression | DEBUG VALUE - ${{inputs.debug && 'ON' || 'OFF'}}
+
+env:
+  VAR: ${{vars.VAR || 'default_var_value'}}
 
 on:
   push:
@@ -26,6 +30,10 @@ jobs:
           echo "I was triggered from main"
           echo "Trigger by: ${{github.event_name}}"
           echo "Branch: $${{github.ref}}"
+
+      - name: Print ENV VAR default value
+        run: |
+          echo "ENV Variable: ${{env.VAR}}"
           
       - name: Greeting
         run: |
