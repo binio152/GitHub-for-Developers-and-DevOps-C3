@@ -1,0 +1,42 @@
+name: 13 - Using Caching
+
+on:
+  workflow_dispatch:
+    inputs:
+      use-cache:
+        description: Wether to execute cache step
+        type: boolean
+        default: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 13-caching
+    steps:
+      - name: Checkout Node.js
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "25.x"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Testing and Linting
+        run: |
+          npm run test
+          npm run lint
+
+      - name: Building
+        run: npm run build
+
+      - name: Deploying to non-product
+        run: echo "Deploying to non-prod"
+    # 1. Checkout the code
+    # 2. Install dependencies
+    # 3. Linting, formatting, unitesting and building
+    # 4. Deploy to a non product
