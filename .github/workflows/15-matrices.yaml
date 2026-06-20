@@ -17,6 +17,6 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
       - name: Testing
         run: echo "Running test on ${{ runner.os }} and Node ${{matrix.node-version}}"
