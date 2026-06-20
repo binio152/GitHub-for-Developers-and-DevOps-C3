@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
           cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
       - name: Caching Dependencies
         uses: actions/cache@v5
         id: cache
@@ -43,9 +44,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: react-app
+    needs: build
     steps:
       - name: Download Artifact
         uses: actions/download-artifact@v8
@@ -53,6 +52,7 @@ jobs:
           name: react-app
           path: app
       - name: Show Folder Structure
-        run: ls -R
+        run: |
+          cd app && ls -R
       - name: Deploy
         run: echo "Deploying ..."
