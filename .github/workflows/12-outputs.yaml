@@ -43,10 +43,9 @@ jobs:
         id: e2e-testing
         run: echo "status=${{ inputs.test_status }}" >> $GITHUB_OUTPUT
 
-        # using write file not append
       - name: System Testing
         id: system-testing
-        run: echo "status=${{ inputs.test_status }}" > $GITHUB_OUTPUT
+        run: echo "status=${{ inputs.test_status }}" >> $GITHUB_OUTPUT
 
       - name: Unit Testing
         id: unit-testing
@@ -55,7 +54,7 @@ jobs:
       - name: Print Outputs
         run: |
           echo "E2E Testing: ${{ steps.e2e-testing.outputs.status }}"
-          echo "System Testing:  ${{ steps.system-testing.outputs.status }}"
+          echo "System Testing: ${{ steps.system-testing.outputs.status }}" 
           echo "Unit Testing: ${{ steps.system-testing.outputs.status }}"
 
   deploy:
