@@ -1,0 +1,58 @@
+name: 14 - Working with Artifacts
+
+on:
+  workflow_dispatch:
+    inputs:
+      node-version:
+        description: Version of Node.js
+        type: string
+        default: "25.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-app
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: "npm"
+      - name: Caching Dependencies
+        uses: actions/cache@v5
+        id: cache
+        with:
+          path: react-app/node_modules
+          key: deps-node-modules-${{ hashFiles('react-app/package-lock.json') }}
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+      - name: Testing
+        run: npm run test
+      - name: Building
+        run: npm run build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: react-app
+          path: react-app/dist
+
+  deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-app
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: react-app
+          path: app
+      - name: Show Folder Structure
+        run: ls -R
+      - name: Deploy
+        run: echo "Deploying ..."
