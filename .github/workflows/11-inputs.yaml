@@ -21,14 +21,15 @@ on:
         description: Release from which to build and deploy
 
 jobs:
-  build:
+  build-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Build
-        run: echo "Building from tag ${{ inputs.tag }}"
+      - name: Building and Testing
+        run: echo "Building adn Testing from tag ${{ inputs.tag }}"
 
   deploy:
     runs-on: ubuntu-latest
+    needs: build-test
     if: ${{ !inputs.dry-run }}
     environment: ${{ inputs.target }}
     steps:
