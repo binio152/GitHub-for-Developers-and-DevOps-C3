@@ -7,6 +7,12 @@ on:
         description: Where you want to workflow working with
         type: string
         default: ./react-app
+      target-env:
+        description: Which environment to target
+        type: choice
+        options:
+          - dev
+          - prod
 
 jobs:
   build:
@@ -23,6 +29,7 @@ jobs:
         with:
           node-version: 24.x
           working-dir: ${{ inputs.working-directory }}
+          target-env: ${{ inputs.target-env }}
 
       - name: Testing
         run: |
