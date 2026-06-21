@@ -6,7 +6,7 @@ on:
       working-directory:
         description: Where you want to workflow working with
         type: string
-        default: ./react-app
+        default: react-app
       target-env:
         description: Which environment to target
         type: choice
@@ -33,6 +33,7 @@ jobs:
 
       - name: Testing
         run: |
+          pwd
           npm run test
 
       - name: Building
