@@ -24,7 +24,7 @@ runs:
       uses: actions/cache@v5
       with:
         path: ${{ inputs.working-dir }}
-        key: node-module-deps-${{ hashFiles('${{ inputs.working-dir }}/package-lock.json') }}
+        key: node-module-deps-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'package-lock.json')) }}
 
     - name: Install Dependencies
       shell: bash
