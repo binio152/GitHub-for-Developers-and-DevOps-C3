@@ -1,0 +1,33 @@
+name: 17 - Working with Composite Action
+
+on:
+  workflow_dispatch:
+    inputs:
+      working-directory:
+        description: Where you want to workflow working with
+        type: string
+        default: ./react-app
+
+jobs:
+  build:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Setup Node and NPM Deps
+        uses: ./.github/actions/composite-cache-deps
+        with:
+          node-version: 24.x
+          working-dir: ${{ inputs.working-directory }}
+
+      - name: Testing
+        run: |
+          npm run test
+
+      - name: Building
+        run: |
+          npm run build
