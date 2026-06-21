@@ -33,6 +33,7 @@ jobs:
 
       - name: Testing
         run: |
+          pwd
           npm run test
 
       - name: Building
