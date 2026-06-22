@@ -1,0 +1,28 @@
+name: 17.2 - Working with JS Custom Actions
+
+on:
+  workflow_dispatch:
+    inputs:
+      working-directory:
+        description: Where you want to workflow working with
+        type: string
+        default: react-app
+      target-env:
+        description: Which environment to target
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  dependency-update:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+      - name: Setup Node and NPM Deps
+        uses: ./.github/actions/js-dependency-update
+       
