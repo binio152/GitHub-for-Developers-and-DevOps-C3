@@ -2,17 +2,9 @@ name: 17.2 - Working with JS Custom Actions
 
 on:
   workflow_dispatch:
-    inputs:
-      working-directory:
-        description: Where you want to workflow working with
-        type: string
-        default: react-app
         
 jobs:
   dependency-update:
-    defaults:
-      run:
-        working-directory: ${{ inputs.working-directory }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
