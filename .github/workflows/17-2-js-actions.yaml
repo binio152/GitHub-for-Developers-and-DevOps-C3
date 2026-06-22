@@ -7,13 +7,7 @@ on:
         description: Where you want to workflow working with
         type: string
         default: react-app
-      target-env:
-        description: Which environment to target
-        type: choice
-        options:
-          - dev
-          - prod
-
+        
 jobs:
   dependency-update:
     defaults:
