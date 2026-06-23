@@ -12,8 +12,8 @@ jobs:
       - name: Run my custom action
         id: greeting
         uses: ./.github/actions/js-dependency-update
-        # with:
-        #   who-to-greet: "Binh"
+        with:
+          who-to-greet: "Binh"
 
       - name: Show Output
         run: |
