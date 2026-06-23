@@ -9,6 +9,11 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
-      - name: Setup Node and NPM Deps
+      - name: Run my custom action
+        id: greeting
         uses: ./.github/actions/js-dependency-update
-       
+        with:
+          who-to-greet: 'Binh'
+
+      - name: Show Output
+        run: echo "Logging: ${{ steps.greeting.outputs.logging }}"
