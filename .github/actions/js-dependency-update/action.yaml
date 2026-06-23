@@ -1,6 +1,16 @@
 name: Update NPM Dependencies
 description: Check if there are updates to NPM packages, and crete a PR with the updated package*.json files.
 
+inputs:
+  who-to-greet:
+    description: "Greeting to provided username"
+    required: true
+    default: "World"
+
+outputs:
+  logging:
+    description: "Logging greeting action"
+
 runs:
   using: node20
   main: index.js
