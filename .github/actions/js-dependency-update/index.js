@@ -2,7 +2,7 @@ import * as core from "@actions/core";
 import fs from "fs";
 
 async function run() {
-  // try {
+  try {
     const nameToGreet = core.getInput("who-to-greet", {required: true});
     const message = `Hello ${nameToGreet}`;
     core.info(message);
@@ -11,9 +11,9 @@ async function run() {
     core.info(`Greeting at: ${time}`);
 
     core.setOutput("logging", `Say ${message} at ${time}`);
-  // } catch (err) {
-  //   core.setFailed(err.message);
-  // }
+  } catch (err) {
+    core.setFailed(err.message);
+  }
 }
 
 run();
