@@ -2,7 +2,7 @@ name: 17.2 - Working with JS Custom Actions
 
 on:
   workflow_dispatch:
-        
+
 jobs:
   dependency-update:
     runs-on: ubuntu-latest
@@ -13,7 +13,8 @@ jobs:
         id: greeting
         uses: ./.github/actions/js-dependency-update
         with:
-          who-to-greet: 'Binh'
+          who-to-greet: "Binh"
 
       - name: Show Output
-        run: echo "Logging: ${{ steps.greeting.outputs.logging }}"
+        run: |
+          echo "Logging: ${{ steps.greeting.outputs.logging }}"
