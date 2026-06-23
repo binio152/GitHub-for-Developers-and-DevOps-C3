@@ -5,7 +5,7 @@ inputs:
   who-to-greet:
     description: "Greeting to provided username"
     required: true
-    # default: "World"
+    default: "World"
 
 outputs:
   logging:
