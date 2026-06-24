@@ -9,7 +9,7 @@ async function run() {
     console.log(`Workflow name: ${github.context.workflow}`);
     console.log(`Repo owner: ${github.context.repo.owner}`);
     console.log(`Job name: ${github.context.job}`);
-    console.log(`Payload: ${JSON.stringify(context.payload, null, 2)}`);
+    console.log(`Payload: ${JSON.stringify(github.context.payload, null, 2)}`);
   } catch (err) {
     core.setFailed(err.message);
   }
