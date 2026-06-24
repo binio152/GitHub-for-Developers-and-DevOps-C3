@@ -1,16 +1,8 @@
 import * as core from "@actions/core";
-import fs from "fs";
-
+import * as github from "@actions/github";
 async function run() {
   try {
-    const nameToGreet = core.getInput("who-to-greet", {required: true});
-    const message = `Hello ${nameToGreet}`;
-    core.info(message);
-
-    const time = new Date().toTimeString();
-    core.info(`Greeting at: ${time}`);
-
-    core.setOutput("logging", `Say ${message} at ${time}`);
+    console.log(github.context);
   } catch (err) {
     core.setFailed(err.message);
   }
