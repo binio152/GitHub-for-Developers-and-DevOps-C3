@@ -15,7 +15,7 @@ async function run() {
             "Pushed branach": `${payload.ref}`,
           }),
         );
-        for (const commit of commits ?? []) {
+        for (const commit of payload.commits ?? []) {
           core.info(`Commit ${commit.id}: ${commit.message}`);
         }
         break;
