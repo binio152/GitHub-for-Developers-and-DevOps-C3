@@ -1,15 +1,42 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
+
 async function run() {
   try {
-    console.log(`SHA: ${github.context.sha}`);
-    console.log(`Branch: ${github.context.ref}`);
-    console.log(`Trigger event: ${github.context.eventName}`);
-    console.log(`Trigger user: ${github.context.actor}`);
-    console.log(`Workflow name: ${github.context.workflow}`);
-    console.log(`Repo owner: ${github.context.repo.owner}`);
-    console.log(`Job name: ${github.context.job}`);
-    console.log(`Payload: ${JSON.stringify(github.context.payload, null, 2)}`);
+    const context = github.context;
+    const action = context.eventName;
+    const payload = context.payload;
+
+    switch (action) {
+      case "push": {
+        core.info(
+          JSON.stringify({
+            Pusher: `${payload.pusher.name} <${payload.pusher.email}>`,
+            "Pushed branach": `${payload.ref}`,
+          }),
+        );
+        for (const commit of commits ?? []) {
+          core.info(`Commit ${commit.id}: ${commit.message}`);
+        }
+        break;
+      }
+
+      case "pull_request": {
+        core.info(JSON.stringify(payload));
+        break;
+      }
+
+      case "issue": {
+        core.info(
+          JSON.stringify({
+            "Issue state": `${payload.state}`,
+            "Issue title": `${payload.title}`,
+            "Issue body": `${payload.body}`,
+          }),
+        );
+        break;
+      }
+    }
   } catch (err) {
     core.setFailed(err.message);
   }
