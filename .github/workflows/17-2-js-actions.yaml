@@ -2,6 +2,9 @@ name: 17.2 - Working with JS Custom Actions
 
 on:
   workflow_dispatch:
+  issues:
+    types: opened
+  pull_request:
 
 jobs:
   dependency-update:
