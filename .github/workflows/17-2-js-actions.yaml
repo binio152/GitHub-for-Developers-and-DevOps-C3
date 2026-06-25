@@ -3,7 +3,7 @@ name: 17.2 - Working with JS Custom Actions
 on:
   workflow_dispatch:
   issues:
-    types: [opened]
+    types: [opened, edited, deleted]
   pull_request:
     types: [opened, synchronize, reopened]
   push:
@@ -15,5 +15,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
+        
       - name: Run my custom action (Log github context)
         uses: ./.github/actions/js-dependency-update
