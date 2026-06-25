@@ -3,12 +3,12 @@ name: 17.2 - Working with JS Custom Actions
 on:
   workflow_dispatch:
   issues:
-    types: [opened, edited, deleted]
   pull_request:
     branches:
       - main
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   dependency-update:
