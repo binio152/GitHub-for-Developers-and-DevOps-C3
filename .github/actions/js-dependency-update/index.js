@@ -7,7 +7,7 @@ async function run() {
     // const action = context.eventName;
     // const payload = context.payload;
 
-    core.info(context);
+    core.info(JSON.stringify(context, null, 2));
 
     // switch (action) {
     //   case action === "push":
