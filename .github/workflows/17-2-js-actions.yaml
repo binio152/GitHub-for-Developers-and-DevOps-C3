@@ -6,6 +6,8 @@ on:
     types: [opened]
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
 
 jobs:
   dependency-update:
