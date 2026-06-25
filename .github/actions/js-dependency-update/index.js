@@ -8,25 +8,23 @@ async function run() {
     const payload = context.payload;
 
     switch (action) {
-      case "push": {
+      case action === "push":
         core.info(
           JSON.stringify({
             Pusher: `${payload.pusher.name} <${payload.pusher.email}>`,
-            "Pushed branach": `${payload.ref}`,
+            "Pushed branch": `${payload.ref}`,
           }),
         );
         for (const commit of payload.commits ?? []) {
           core.info(`Commit ${commit.id}: ${commit.message}`);
         }
         break;
-      }
 
-      case "pull_request": {
+      case "pull_request":
         core.info(JSON.stringify(payload));
         break;
-      }
 
-      case "issue": {
+      case "issues":
         core.info(
           JSON.stringify({
             "Issue state": `${payload.state}`,
@@ -35,7 +33,6 @@ async function run() {
           }),
         );
         break;
-      }
     }
   } catch (err) {
     core.setFailed(err.message);
