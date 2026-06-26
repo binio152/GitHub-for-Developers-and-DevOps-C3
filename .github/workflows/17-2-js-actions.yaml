@@ -4,10 +4,8 @@ on:
   workflow_call:
     inputs:
       github-token:
-        description: token using for octokit
         type: string
         required: true
-
   workflow_dispatch:
   issues:
   pull_request:
@@ -19,6 +17,9 @@ on:
 
 jobs:
   dependency-update:
+    env:
+      token: ${{ secrets.SECRET_GITHUB_TOKEN }}
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -27,4 +28,4 @@ jobs:
       - name: Run my custom action (Log github context)
         uses: ./.github/actions/js-dependency-update
         with:
-          github-token: ${{ inputs.github-token }}
+          github-token: ${{ env.token }}
