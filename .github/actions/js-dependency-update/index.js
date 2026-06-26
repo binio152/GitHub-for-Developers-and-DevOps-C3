@@ -8,7 +8,7 @@ async function run() {
 
     const { owner, repo } = github.context.repo;
 
-    if (github.context.eventName === "issue") {
+    if (github.context.eventName === "issues") {
       await octokit.rest.issues.createComment({
         owner,
         repo,
