@@ -2,9 +2,23 @@ name: Update NPM Dependencies
 description: Check if there are updates to NPM packages, and crete a PR with the updated package*.json files.
 
 inputs:
+  base-branch:
+    description: The branch used as the base for the dependencies update check
+    default: main
+    required: false
+  target-branch:
+    description: The branch from which the PR is created
+    default: update-dependencies
+    required: false
+  working-directory:
+    description: The working directory of project to check dependencies update
+    default: react-app
   github-token:
-    description: Token using for octokit
+    description: Authentication token with repository access
     required: true
+  debug:
+    description: Whether the putput debug messages to the consoles
+    default: "false"
 
 runs:
   using: node24
