@@ -4,7 +4,7 @@ import * as exec from "@actions/exec";
 
 const validateBranchName = (branchName) =>
   /^[a-zA-z0-9_\-\.\/]+$/.test(branchName);
-const validateWorkingDirectory = (directory) =>
+const validateDirectory = (directory) =>
   /^[a-zA-z0-9_\-\.\/]+$/.test(directory);
 
 async function setUpGit() {
@@ -42,7 +42,7 @@ function validateBranch(base, head) {
 }
 
 function validateWorkingDirectory(workingDirectory) {
-  if (!validateWorkingDirectory(workingDirectory)) {
+  if (!validateDirectory(workingDirectory)) {
     core.setFailed("Invalid working directory");
     return;
   }
