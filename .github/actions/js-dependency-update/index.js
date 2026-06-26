@@ -10,12 +10,18 @@ const validateWorkingDirectory = (directory) =>
 async function run() {
   try {
     const token = core.getInput("github-token", { required: true });
-    const baseBranch = core.getInput("base-branch");
-    const targetBranch = core.getInput("target-branch");
-    const workingDirectory = core.getInput("working-directory");
+    const baseBranch = core.getInput("base-branch", { required: true });
+    const targetBranch = core.getInput("target-branch", { required: true });
+    const workingDirectory = core.getInput("working-directory", {
+      required: true,
+    });
     const debug = core.getBooleanInput("debug");
 
+    const execOpts = { cwd: workingDirectory };
+
     core.setSecret(token);
+    const octokit = github.getOctokit(token);
+    const { owner, repo } = github.context.repo;
 
     if (!validateBranchName(baseBranch)) {
       core.setFailed("Invalid base branch");
@@ -36,25 +42,55 @@ async function run() {
       `[js-dependencies-update]: working directory is ${workingDirectory}`,
     );
 
-    await exec.exec("npm update", [], {
-      cwd: workingDirectory,
-    });
+    await exec.exec("npm update", [], { ...execOpts });
 
     const gitStatus = await exec.getExecOutput(
       "git status -s package*.json",
       [],
-      {
-        cwd: workingDirectory,
-      },
+      { ...execOpts },
     );
 
     if (gitStatus.stdout.length > 0) {
       core.info(`[js-dependencies-update]: There are updates available!`);
-    } else {
-      core.indo(`[js-dependencies-update]: There is no updates at this time`);
-    }
 
-    
+      // setup git config
+      await exec.exec(`git config --global user.name "gh-automation"`);
+      await exec.exec(
+        `git config --global user.email "gh-automation@gmail.com"`,
+      );
+
+      // create new target branch
+      await exec.exec(`git switch -c ${targetBranch}`, [], { ...execOpts });
+
+      // add new package-lock.json and commit
+      await exec.exec(`git add package-lock.json`, [], { ...execOpts });
+      await exec.exec(`git commit -m "chore: update dependencies"`, [], {
+        ...execOpts,
+      });
+
+      // push to the target branch
+      await exec.exec(`git push -u ${targetBranch} --force`, [], {
+        ...execOpts,
+      });
+
+      try {
+        await octokit.rest.pulls.create({
+          owner,
+          repo,
+          title: `Update NPM dependencies`,
+          body: `This PR update NPM packages`,
+          head: targetBranch,
+          base: baseBranch,
+        });
+      } catch (error) {
+        core.warning(
+          `[js-dependency-update]: Something went srong while creating the PR`,
+        );
+        core.setFailed(error.message);
+      }
+    } else {
+      core.info(`[js-dependencies-update]: There is no updates at this time`);
+    }
   } catch (error) {
     core.setFailed(`Error: ${error.message}`);
   }
