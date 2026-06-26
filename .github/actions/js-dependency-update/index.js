@@ -66,7 +66,7 @@ async function run() {
     const execOpts = { cwd };
     const logger = setupLogger({ debug, prefix: "[js-dependency-update]" });
 
-    const octokit = createOctokit();
+    const octokit = createOctokit(token);
 
     logger.debug("Validating base branch, head branch, working directory ...");
     validateBranch(baseBranch, headBranch);
