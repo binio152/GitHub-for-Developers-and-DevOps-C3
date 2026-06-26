@@ -69,7 +69,7 @@ async function run() {
       });
 
       // push to the target branch
-      await exec.exec(`git push -u ${targetBranch} --force`, [], {
+      await exec.exec(`git push -u origin ${targetBranch} --force`, [], {
         ...execOpts,
       });
 
