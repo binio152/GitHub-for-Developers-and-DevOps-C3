@@ -74,6 +74,7 @@ async function run() {
       });
 
       try {
+        core.info("Creating Pull Request ...");
         await octokit.rest.pulls.create({
           owner,
           repo,
