@@ -110,7 +110,7 @@ async function run() {
       logger.debug(
         `Pushing from ${headBranch} branch to ${baseBranch} branch ...`,
       );
-      await exec.exec(`git push -u ${targetBranch} --force`, [], {
+      await exec.exec(`git push -u origin ${targetBranch} --force`, [], {
         ...execOpts,
       });
 
