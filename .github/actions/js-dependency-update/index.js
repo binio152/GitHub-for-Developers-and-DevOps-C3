@@ -33,7 +33,7 @@ async function run() {
     }
 
     core.info("Actions run successfully");
-  } catch (err) {
+  } catch (error) {
     core.setFailed(`Error: ${error.message}`);
   }
 }
