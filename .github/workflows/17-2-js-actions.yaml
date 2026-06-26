@@ -6,7 +6,7 @@ on:
       base-branch:
         type: string
         default: main
-      target-branch:
+      head-branch:
         type: string
         default: update-dependencies
       working-directory:
@@ -30,6 +30,6 @@ jobs:
         with:
           github-token: ${{ github.token }}
           base-branch: ${{ inputs.base-branch }}
-          target-branch: ${{ inputs.target-branch }}
+          head-branch: ${{ inputs.head-branch }}
           working-directory: ${{ inputs.working-directory }}
           debug: ${{ inputs.debug }}
