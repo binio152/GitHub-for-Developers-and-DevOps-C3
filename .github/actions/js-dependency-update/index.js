@@ -3,7 +3,7 @@ import * as github from "@actions/github";
 
 async function run() {
   try {
-    const token = core.getInput("github-token");
+    const token = core.getInput("github-token", {required: true});
     const octokit = github.getOctokit(token);
 
     const { owner, repo } = github.context.repo;
@@ -34,12 +34,7 @@ async function run() {
 
     core.info("Actions run successfully");
   } catch (err) {
-    if (error instanceof Error) {
-      core.setFailed(error.message);
-      return;
-    }
-
-    core.setFailed("Unknown error");
+    core.setFailed(`Error: ${error.message}`);
   }
 }
 
