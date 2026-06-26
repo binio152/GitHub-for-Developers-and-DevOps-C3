@@ -12,6 +12,8 @@ on:
 
 jobs:
   dependency-update:
+    permissions: write-all
+      
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
