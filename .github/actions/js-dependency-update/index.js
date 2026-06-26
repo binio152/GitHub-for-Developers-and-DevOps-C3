@@ -3,45 +3,32 @@ import * as github from "@actions/github";
 
 async function run() {
   try {
-    const context = github.context;
-    // const action = context.eventName;
-    // const payload = context.payload;
+    const token = core.getInput("github-token");
+    const octokit = github.getOctokit(token);
 
-    core.info(JSON.stringify(context, null, 2));
+    const { owner, repo } = github.context.repo;
 
-    // switch (action) {
-    //   case action === "push":
-    //     core.info(
-    //       JSON.stringify({
-    //         Pusher: `${payload.pusher.name} <${payload.pusher.email}>`,
-    //         "Pushed branch": `${payload.ref}`,
-    //       }),
-    //     );
-    //     for (const commit of payload.commits ?? []) {
-    //       core.info(`Commit ${commit.id}: ${commit.message}`);
-    //     }
-    //     break;
+    const issue = github.context.payload.issue;
+    if (!issue) {
+      core.setFailed("No issue found in payload");
+      return;
+    }
 
-    //   case "pull_request":
-    //     core.info(JSON.stringify(payload));
-    //     break;
+    await octokit.rest.issues.createComment({
+      owner,
+      repo,
+      issue_number: issue.number,
+      body: "Thanks for opening this issue!",
+    });
 
-    //   case "issue":
-    //     core.info(
-    //       JSON.stringify({
-    //         "Issue state": `${payload.issue.state}`,
-    //         "Issue title": `${payload.issue.title}`,
-    //         "Issue body": `${payload.issue.body}`,
-    //       }),
-    //     );
-
-    //     for (const label of payload.issue.labels ?? []) {
-    //       core.info(label);
-    //     }
-    //     break;
-    // }
+    core.info("Comment created successfully");
   } catch (err) {
-    core.setFailed(err.message);
+    if (error instanceof Error) {
+      core.setFailed(error.message);
+      return;
+    }
+
+    core.setFailed("Unknown error");
   }
 }
 
