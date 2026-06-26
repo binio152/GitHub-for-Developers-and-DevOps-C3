@@ -73,7 +73,7 @@ async function run() {
     validateWorkingDirectory(cwd);
     logger.debug(`Base branch is ${baseBranch}`);
     logger.debug(`Target branch is ${headBranch}`);
-    logger.debug(`Working directory is ${workingDirectory}`);
+    logger.debug(`Working directory is ${cwd}`);
     logger.debug(
       "Validated base branch, head branch, working directory successfully",
     );
