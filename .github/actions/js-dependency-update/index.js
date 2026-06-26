@@ -8,20 +8,31 @@ async function run() {
 
     const { owner, repo } = github.context.repo;
 
-    const issue = github.context.payload.issue;
-    if (!issue) {
-      core.setFailed("No issue found in payload");
-      return;
+    if (github.context.eventName === "issue") {
+      await octokit.rest.issues.createComment({
+        owner,
+        repo,
+        issue_number: github.context.payload.issue.number,
+        body: "Thanks for opening this issue!",
+      });
     }
 
-    await octokit.rest.issues.createComment({
-      owner,
-      repo,
-      issue_number: issue.number,
-      body: "Thanks for opening this issue!",
-    });
+    if (github.context.eventName === "push") {
+      const pusher = github.context.payload.pusher.name;
+      const ref = github.context.payload.ref;
 
-    core.info("Comment created successfully");
+      await octokit.rest.repos.createCommitStatus({
+        owner,
+        repo,
+        sha: github.context.sha,
+        state: "success",
+        target_url: `https://github.com{owner}/${repo}/actions`,
+        description: `Push from ${pusher}`,
+        context: "Security/Pusher-Verification",
+      });
+    }
+
+    core.info("Actions run successfully");
   } catch (err) {
     if (error instanceof Error) {
       core.setFailed(error.message);
