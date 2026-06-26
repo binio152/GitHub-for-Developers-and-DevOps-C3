@@ -24,4 +24,4 @@ jobs:
       - name: Run my custom action (Log github context)
         uses: ./.github/actions/js-dependency-update
         with:
-          github-token: ${{ vars.SECRET_GITHUB_TOKEN || secrets.SECRET_GITHUB_TOKEN}}
+          github-token: ${{ github.token }}
