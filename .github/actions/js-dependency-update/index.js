@@ -72,7 +72,7 @@ async function run() {
     validateBranch(baseBranch, headBranch);
     validateWorkingDirectory(cwd);
     logger.debug(`Base branch is ${baseBranch}`);
-    logger.debug(`Target branch is ${targetBranch}`);
+    logger.debug(`Target branch is ${headBranch}`);
     logger.debug(`Working directory is ${workingDirectory}`);
     logger.debug(
       "Validated base branch, head branch, working directory successfully",
@@ -97,7 +97,7 @@ async function run() {
 
       // create new target branch
       logger.debug(`Creating new ${headBranch} branch ...`);
-      await exec.exec(`git switch -c ${targetBranch}`, [], { ...execOpts });
+      await exec.exec(`git switch -c ${headBranch}`, [], { ...execOpts });
 
       logger.debug(`Adding package-lock.json and committing ...`);
       // add new package-lock.json and commit
@@ -110,7 +110,7 @@ async function run() {
       logger.debug(
         `Pushing from ${headBranch} branch to ${baseBranch} branch ...`,
       );
-      await exec.exec(`git push -u origin ${targetBranch} --force`, [], {
+      await exec.exec(`git push -u origin ${headBranch} --force`, [], {
         ...execOpts,
       });
 
@@ -121,7 +121,7 @@ async function run() {
           repo,
           title: `Update NPM dependencies`,
           body: `This PR update NPM packages`,
-          head: targetBranch,
+          head: headBranch,
           base: baseBranch,
         });
         logger.debug(`Created PR (${pr.title}: ${pr.body}) `);
