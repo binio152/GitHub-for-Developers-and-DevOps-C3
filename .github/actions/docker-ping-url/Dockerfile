@@ -5,8 +5,8 @@ WORKDIR /app
 COPY requirements.txt .
 
 RUN python -V
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install requirements.txt
 
 COPY . .
 
-CMD [ "pyhton", "app/main.py" ]
+CMD [ "pyhton", "/app/main.py" ]
